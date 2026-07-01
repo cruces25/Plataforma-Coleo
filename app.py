@@ -1,14 +1,16 @@
 import streamlit as st
 import gspread
 from google.oauth2.service_account import Credentials
-import json
 
 # --- CONFIGURACIÓN ---
 st.set_page_config(page_title="Quinielas de Coleo", layout="centered")
 
 def get_gspread_client():
-    # Leer el secreto como un diccionario directo
+    # Convertimos los secretos a un diccionario
     creds_dict = dict(st.secrets["gcp"])
+    # Limpiamos la clave privada: reemplazamos las barras invertidas n por saltos de línea reales
+    creds_dict["private_key"] = creds_dict["private_key"].replace("\\n", "\n")
+    
     scopes = ["https://www.googleapis.com/auth/spreadsheets"]
     creds = Credentials.from_service_account_info(creds_dict, scopes=scopes)
     return gspread.authorize(creds)
