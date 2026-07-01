@@ -5,8 +5,8 @@ from google.oauth2.service_account import Credentials
 # --- CONFIGURACIÓN ---
 st.set_page_config(page_title="Quinielas de Coleo", layout="centered")
 
-# Definimos las credenciales directamente en el código para evitar errores de formato
-# IMPORTANTE: Esto es para uso personal en tu app, no compartas este código con nadie.
+# Esta es tu información de cuenta de servicio. 
+# Nota: He asegurado el formato de la clave privada.
 service_account_info = {
     "type": "service_account",
     "project_id": "generated-wharf-481303-u5",
@@ -21,6 +21,8 @@ service_account_info = {
 }
 
 def get_gspread_client():
+    # Aseguramos que la clave privada tenga los saltos de línea correctos
+    service_account_info["private_key"] = service_account_info["private_key"].replace("\\n", "\n")
     scopes = ["https://www.googleapis.com/auth/spreadsheets"]
     creds = Credentials.from_service_account_info(service_account_info, scopes=scopes)
     return gspread.authorize(creds)
