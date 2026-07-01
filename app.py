@@ -5,7 +5,7 @@ from google.oauth2.service_account import Credentials
 st.set_page_config(page_title="Quinielas de Coleo")
 
 def get_client():
-    # Carga las credenciales desde los Secrets definidos arriba
+    # Carga las credenciales desde los Secrets configurados en la nube
     creds = Credentials.from_service_account_info(
         st.secrets["gcp"],
         scopes=["https://www.googleapis.com/auth/spreadsheets"]
@@ -14,7 +14,6 @@ def get_client():
 
 st.title("🏆 Registro de Quinielas")
 
-# Formulario
 with st.form("registro_cuadros"):
     participante = st.text_input("Nombre del Participante")
     whatsapp = st.text_input("WhatsApp")
@@ -29,6 +28,7 @@ with st.form("registro_cuadros"):
         if participante and whatsapp:
             try:
                 client = get_client()
+                # Asegúrate de que la hoja "BaseDatosColeo" y la pestaña "Cuadros" existan
                 hoja = client.open("BaseDatosColeo").worksheet("Cuadros")
                 hoja.append_row([participante, whatsapp, c1, c2, c3, c4])
                 st.success("¡Cuadro registrado correctamente!")
