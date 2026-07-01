@@ -6,12 +6,19 @@ st.set_page_config(page_title="Plataforma de Coleo", page_icon="🏆")
 st.title("🏆 Plataforma de Quinielas de Coleo")
 
 # 1. Configuración de credenciales (Inyectadas directamente)
-GCP_CONFIG = {
-    "type": "service_account",
-    "project_id": "generated-wharf-481303-u5",
-    "private_key_id": "162ba21471771bf8b0e16642c7cf01fe0ae44525",
-    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC8h7qeulYq65U+Iv5Isd4WJJaCmSNlwKNm45b14J2WosWmltYZjcSXrOGh3qMXboQKavaq9ASmxHT+m7E6TLKC1xiiGdAeCiDxi7xkmRFmlCeUbpGrmG3Vn5LxJpq3fKBcJU4khOExpUkG5BT2BQ/rniq7PiS5DtCIgNiG5Y7m91EW9HD7Ip7uzTYKS5W65NOwLyBKY7lw//8KjsfbUZ9LS7qeQj5NoTf5SY8KuBlalxo8TRMKTeb5zlpc6ugq48QvRPVH4IpgQzjxRd76S0WX1t8qco1SsOEXfjJGx0hJMrVvYB+5XpBQqtNfB99ggAVH4qZPvva4iQjakrMO6nb7AgMBAAECggEAAdBH/4ZzzjHkosENpSpEa4xVOP27P+KqvfX5L1k4QDPTw13TNItH6ty4cZra5ld4tiVjfhLXwJy4FhEnIU0cBg+GwyMbGTJvTVxvbfWkxlHX3r1ycbxciTxv9v0FoxsesnYBaOD4I2M74NRs3Ic6KRczT8+Vc0wQhQpPYEIp9RdDusnFPmiCmuvFDHlc5N7P3VQ5ni4tVCa3+oMII5Qp6tgjsaXOqhopQNAJEZZ4LrJWjczh4TjkdjN4LfYTj00cLf2wnm1UW5kEhADhICpCUZHbWa+YA+7K/hyoA/QI8ItFbe3clasn0IYXvFA/V1WSGSKe+ziOfO6C3QCey9G7UQKBgQDtu8gSkUbvgRtnpv5LvUqGDJF0ciknZnnm7YhOlG0HjLmCauh/xG4z+vh5SnPU2QzgT8tMBDijZgfyv5Z/4r82tBTLffMA7fmR7Ytxd+03c3NYEOIsKmkJA2gVFPSxAgFayp94kwdPj3Ejwh7yR63iQsiNGoQWiMJ0cMZoeYx/5wKBgQDLBB4wUguj7cSWbsZ2SsioLdJBYb3iCZoqBZrUE8ldlX2bi/wK6ZjiHtHmcJhe7EIpQ6IfJFwMFtNst++Jj5vI82+IN/JclV9acMx3u6WBn6udH2gqTjZp5MPEVc5wPdAXHFUnS5+m2hPzwbuteEgJBBaILB+P51yLllBMY+I9zQKBgQDm8k9wyjTxIqkuzqmnhmJJSxha2TRllEXEMukB/WrVtL3almT7CiZM1PhhTBSup5S8rIfAdzFWex4pkjlwTySWzeaNsPNK6eRTAUM/ndOS1NMusGgno6OaH/cS0+LJujr6qnC1P5AQmDa/GCvcDgo8DciqWyIKihzt5Ui54aq97QKBgFZP5uHWT/qfAQCQEjKCsvLFoGmJu6gZOwD4pw3ZZ7gw8VkrV7nv/L7OKaFWZ4Gb4rkWdxvUYooFPlgvj1ilxK7XyKhaWOFB5GtYH6YcEk6c6uJ/UtMBs6KrzwtvC7iunwTkV9PAFB1lBCyTRk6HH+EtasL0N2sAC1mRS4xevvZVAoGAREGc/zQQnAl3NvJoob0le0zve0xT1uBFdrfIw2OqDovWiD7bWwMMgI1eYQQsx3wDXk5/7JZrZ37VBdor3BOLpJHcyYoDTIM24K0MwwNgXyhwoSZ0YCxalpSQRuEnXNHg2mWzU6trJEzviRQzYg75axm0WWpwc+GlizlVP6yLz1I=\n-----END PRIVATE KEY-----",
-    "client_email": "parley-coleo-aguirre@generated-wharf-481303-u5.iam.gserviceaccount.com"
+GCP_CONFIG = {{
+  "type": "service_account",
+  "project_id": "generated-wharf-481303-u5",
+  "private_key_id": "93fe1c612b74486578238120b44c4621824309db",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDSwzXXck7p0GSX\ntf7hbdELsVnEypj6zIHAc9jzVUySsAj7EqLyRwQU8emasVDVQSmzFOfRcsgbegSU\nDDzKeRmtvZtwEskNgjASixk537+htAtwlkjwPJXXDbhmcUGVkU/gsSGxRRQpAP1E\n5Ro+DlHNpc+bvSi6WHPVSUHGt6CrF8ML9G9jAQcqghb1LysOjbYiuF+k4USdw0Vr\n7Eyx83nLjL5zdxBJqLqUP3NRh9Yeww3CXaZOx1KWFnum6V/wBagyybQ8DSEPHMIR\nYISAvPgvPZSORjCdKDjHI50BKh1yLqcIPvIO5e8PniqsHlZS6dl4Liut2VwBvtTr\nKv4gBaUhAgMBAAECggEAD3/KkFb4JaqtExkPrt1ID7+Rle6+NEdgzVnXnQFrWag3\naNtUf1Oooa+umbErfBtIKULCz3zM6XReLNL/j3Y7ZLL6YNII1gT6awquprplGcun\nQbbTk1MpQ8DfDC2NAKZIhQIRs7scQe2wMmZUuTaNXn2wmEffXGDP1+IEw8vSNXKu\nHpqM/JnhwsLH2852ZFFLUGD46mD3QhqhKy4/zvVUV7RnzzTBR+FLwERDUT8S6Ylb\nqCyRuGXtpYIn3DdJghQ4YzS1Pr0T2iCWLm1fNvrv1tXqmyv5nXfJg469NhT0+ogG\nydNzvCuYOjCtLPNoPRBF/v903xMkSxD6RnHUvC1eBwKBgQD8D1g55mjrT+gqikHC\nCXMo1rSwl4lREL2ZuOEaSfSMBpBCRQBHQgF8W1FGdOZUtsQ6c4vUKp/TxUB9VYv6\nAaelyeYrh+Vm1c4njMoQizoMH+bGMDnUoZgiETuOtj9wlrDRkToovv+kyiSyei3W\nQVH4X5O3eyyaiz95vKiVaqnJ6wKBgQDWDpulehrJCTx7wDDHgEzLTW7wZQU2qUKV\nAHC7TkDHT4Du1G0lJ7Sl9SbSFV2+4kjBODuOk9N2BzZUPgWwb4KpjElc6UFud6TM\nBdHiSsHL2zDNuav2WGQU8HtPWDa1s7uXsnHHw+QJvrhrwkFjYwWXJF8TT1S/OIxM\neOUXhJCeIwKBgDanFRgoz2MGRm7C35M0/VVDiJYppUqAeLvWDGjo1C9wVOMplu/c\nbfoKysqeGjsQDegmmZD9VP5T7LHAVMN2jGU0K8YQhzsO7M5ChqWjqohqel1Ko59p\nElWAqws8lPDSm7A07wlasI+IjQBt4XZtX1qdTqgf+wHfY3n/4AXVxM7VAoGBAJ9G\nvWATDG08lynJ50H7YKkCFCOCN6/loCp46mklICRuLxUHMbOs6Ml4MguuZFQN0m8b\npY1Ax98SHMXwZJFVWBdK0Kf21H4bPp+lUPgeAjfrAFSD7MXgHZBLJKX0kLkBZPvK\nhslLJJpvtJBSOg929gjxwmD+7aNfs12Ps3+dX3KbAoGAHhGrvSJQl2FUN5a8AgBj\nltgPKEwrl/WwfFgjKuH0fAZ9y8po9cq52ExIHZud4EQd9qqLjBJb5V8+NXY3LJ+y\nepBORU7p28PsjNevbq6ELgGgPiFBKjcs7GWRRmF2aiuRgWCZRj4PUWCS2TQ27HAx\n9RuUNA9WB4xJIQBFf6nkz/8=\n-----END PRIVATE KEY-----\n",
+  "client_email": "parley-coleo-aguirre@generated-wharf-481303-u5.iam.gserviceaccount.com",
+  "client_id": "111155693971512066009",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/parley-coleo-aguirre%40generated-wharf-481303-u5.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
 }
 
 # 2. Lógica de conexión
@@ -19,7 +26,7 @@ try:
     creds = Credentials.from_service_account_info(GCP_CONFIG, scopes=["https://www.googleapis.com/auth/spreadsheets"])
     client = gspread.authorize(creds)
     # IMPORTANTE: Reemplaza la URL de abajo por la tuya
-    hoja = client.open_by_url("https://docs.google.com/spreadsheets/d/1GIHAS9zV3Zvyj-_PKxM7W0YC4gL4qGSSIsUb8WMVhzs/edit?gid=0#gid=0").worksheet("Cuadros")
+    hoja = client.open_by_url("1GIHAS9zV3Zvyj-_PKxM7W0YC4gL4qGSSIsUb8WMVhzs").worksheet("Cuadros")
     st.success("¡Conexión establecida correctamente!")
 except Exception as e:
     st.error(f"Error de conexión: {e}")
