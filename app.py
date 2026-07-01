@@ -2,22 +2,12 @@ import streamlit as st
 import gspread
 from google.oauth2.service_account import Credentials
 
-st.set_page_config(page_title="Quinielas de Coleo")
+# --- CONFIGURACIÓN ---
+st.set_page_config(page_title="Quinielas de Coleo", layout="centered")
 
-# Configuramos las credenciales usando el JSON que proporcionaste
-# Nota: La clave privada está en una sola línea con los \n explícitos
+# Tu diccionario de credenciales ya funciona correctamente
 creds_dict = {
-    "type": "service_account",
-    "project_id": "generated-wharf-481303-u5",
-    "private_key_id": "162ba21471771bf8b0e16642c7cf01fe0ae44525",
-    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC8h7qeulYq65U+\nIv5Isd4WJJaCmSNlwKNm45b14J2WosWmltYZjcSXrOGh3qMXboQKavaq9ASmxHT+\nm7E6TLKC1xiiGdAeCiDxi7xkmRFmlCeUbpGrmG3Vn5LxJpq3fKBcJU4khOExpUkG\n5BT2BQ/rniq7PiS5DtCIgNiG5Y7m91EW9HD7Ip7uzTYKS5W65NOwLyBKY7lw//8K\njsfbUZ9LS7qeQj5NoTf5SY8KuBlalxo8TRMKTeb5zlpc6ugq48QvRPVH4IpgQzjx\nRd76S0WX1t8qco1SsOEXfjJGx0hJMrVvYB+5XpBQqtNfB99ggAVH4qZPvva4iQja\nkrMO6nb7AgMBAAECggEAAdBH/4ZzzjHkosENpSpEa4xVOP27P+KqvfX5L1k4QDPT\nw13TNItH6ty4cZra5ld4tiVjfhLXwJy4FhEnIU0cBg+GwyMbGTJvTVxvbfWkxlHX\n3r1ycbxciTxv9v0FoxsesnYBaOD4I2M74NRs3Ic6KRczT8+Vc0wQhQpPYEIp9RdD\nusnFPmiCmuvFDHlc5N7P3VQ5ni4tVCa3+oMII5Qp6tgjsaXOqhopQNAJEZZ4LrJW\njczh4TjkdjN4LfYTj00cLf2wnm1UW5kEhADhICpCUZHbWa+YA+7K/hyoA/QI8ItF\nbe3clasn0IYXvFA/V1WSGSKe+ziOfO6C3QCey9G7UQKBgQDtu8gSkUbvgRtnpv5L\nvUqGDJF0ciknZnnm7YhOlG0HjLmCauh/xG4z+vh5SnPU2QzgT8tMBDijZgfyv5Z/\n4r82tBTLffMA7fmR7Ytxd+03c3NYEOIsKmkJA2gVFPSxAgFayp94kwdPj3Ejwh7y\nR63iQsiNGoQWiMJ0cMZoeYx/5wKBgQDLBB4wUguj7cSWbsZ2SsioLdJBYb3iCZoq\nBZrUE8ldlX2bi/wK6ZjiHtHmcJhe7EIpQ6IfJFwMFtNst++Jj5vI82+IN/JclV9a\ncMx3u6WBn6udH2gqTjZp5MPEVc5wPdAXHFUnS5+m2hPzwbuteEgJBBaILB+P51yL\nllBMY+I9zQKBgQDm8k9wyjTxIqkuzqmnhmJJSxha2TRllEXEMukB/WrVtL3almT7\nCiZM1PhhTBSup5S8rIfAdzFWex4pkjlwTySWzeaNsPNK6eRTAUM/ndOS1NMusGgn\no6OaH/cS0+LJujr6qnC1P5AQmDa/GCvcDgo8DciqWyIKihzt5Ui54aq97QKBgFZP\n5uHWT/qfAQCQEjKCsvLFoGmJu6gZOwD4pw3ZZ7gw8VkrV7nv/L7OKaFWZ4Gb4rkW\ndxvUYooFPlgvj1ilxK7XyKhaWOFB5GtYH6YcEk6c6uJ/UtMBs6KrzwtvC7iunwTk\nV9PAFB1lBCyTRk6HH+EtasL0N2sAC1mRS4xevvZVAoGAREGc/zQQnAl3NvJoob0l\ne0zve0xT1uBFdrfIw2OqDovWiD7bWwMMgI1eYQQsx3wDXk5/7JZrZ37VBdor3BOL\npJHcyYoDTIM24K0MwwNgXyhwoSZ0YCxalpSQRuEnXNHg2mWzU6trJEzviRQzYg75\naxm0WWpwc+GlizlVP6yLz1I=\n-----END PRIVATE KEY-----",
-    "client_email": "parley-coleo-aguirre@generated-wharf-481303-u5.iam.gserviceaccount.com",
-    "client_id": "111155693971512066009",
-    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-    "token_uri": "https://oauth2.googleapis.com/token",
-    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/parley-coleo-aguirre%40generated-wharf-481303-u5.iam.gserviceaccount.com",
-    "universe_domain": "googleapis.com"
+    # ... (mantén tu diccionario exacto como lo tienes ahora) ...
 }
 
 def get_client():
@@ -29,7 +19,29 @@ st.title("🏆 Plataforma de Quinielas de Coleo")
 
 try:
     client = get_client()
-    # Tu lógica aquí...
+    # Asegúrate de que el nombre del archivo sea exactamente "BaseDatosColeo"
+    sheet = client.open("BaseDatosColeo")
+    hoja = sheet.worksheet("Cuadros")
+    
     st.success("¡Conexión exitosa con Google Sheets!")
+
+    # Formulario para capturar los datos
+    with st.form("registro_cuadro"):
+        nombre = st.text_input("Nombre del Participante")
+        whatsapp = st.text_input("Número de WhatsApp")
+        c1 = st.text_input("Coleador 1")
+        c2 = st.text_input("Coleador 2")
+        c3 = st.text_input("Coleador 3")
+        c4 = st.text_input("Coleador 4")
+        
+        btn_enviar = st.form_submit_button("Registrar Cuadro")
+        
+        if btn_enviar:
+            if nombre and whatsapp:
+                hoja.append_row([nombre, whatsapp, c1, c2, c3, c4])
+                st.success("¡Cuadro registrado con éxito!")
+            else:
+                st.error("Por favor, completa al menos el nombre y WhatsApp.")
+
 except Exception as e:
-    st.error(f"Error: {e}")
+    st.error(f"Error al conectar con la hoja: {e}")
