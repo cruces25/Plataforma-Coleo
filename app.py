@@ -2,44 +2,44 @@ import streamlit as st
 import gspread
 from google.oauth2.service_account import Credentials
 
-# Configuración de credenciales usando los Secretos de Streamlit
-creds_dict = {
-    "type": st.secrets["gcp"]["type"],
-    "project_id": st.secrets["gcp"]["project_id"],
-    "private_key_id": st.secrets["gcp"]["private_key_id"],
-    "private_key": st.secrets["gcp"]["private_key"].replace("\\n", "\n"),
-    "client_email": st.secrets["gcp"]["client_email"],
-    "client_id": st.secrets["gcp"]["client_id"],
-    "auth_uri": st.secrets["gcp"]["auth_uri"],
-    "token_uri": st.secrets["gcp"]["token_uri"],
-    "auth_provider_x509_cert_url": st.secrets["gcp"]["auth_provider_x509_cert_url"],
-    "client_x509_cert_url": st.secrets["gcp"]["client_x509_cert_url"]
-}
+# --- CONFIGURACIÓN ---
+def get_gspread_client():
+    creds_dict = dict(st.secrets["gcp"])
+    creds_dict["private_key"] = creds_dict["private_key"].replace("\\n", "\n")
+    scopes = ["https://www.googleapis.com/auth/spreadsheets"]
+    creds = Credentials.from_service_account_info(creds_dict, scopes=scopes)
+    return gspread.authorize(creds)
 
-scopes = ["https://www.googleapis.com/auth/spreadsheets"]
-creds = Credentials.from_service_account_info(creds_dict, scopes=scopes)
-client = gspread.authorize(creds)
-
-# Abrir el Google Sheet por nombre
-sheet = client.open("BaseDatosColeo")
-hoja_cuadros = sheet.worksheet("Cuadros")
-
+# --- INTERFAZ ---
+st.set_page_config(page_title="Quinielas de Coleo", layout="centered")
 st.title("🏆 Plataforma de Quinielas de Coleo")
 
-with st.form("registro_cuadro", clear_on_submit=True):
-    nombre = st.text_input("Nombre del Participante")
-    whatsapp = st.text_input("Número de WhatsApp")
-    c1 = st.text_input("Coleador 1")
-    c2 = st.text_input("Coleador 2")
-    c3 = st.text_input("Coleador 3")
-    c4 = st.text_input("Coleador 4")
-    
-    btn_enviar = st.form_submit_button("Enviar Cuadro")
+try:
+    client = get_gspread_client()
+    sheet = client.open("BaseDatosColeo")
+    hoja_cuadros = sheet.worksheet("Cuadros")
+    hoja_coleadores = sheet.worksheet("Coleadores")
 
-if btn_enviar:
-    if nombre and whatsapp and c1 and c2 and c3 and c4:
-        # Aquí es donde ocurre la magia: enviamos los datos a la hoja
-        hoja_cuadros.append_row([nombre, whatsapp, c1, c2, c3, c4])
-        st.success(f"¡Excelente {nombre}! Tu cuadro ha sido guardado en la base de datos.")
-    else:
-        st.error("Por favor, llena todos los campos.")
+    # Leer coleadores (asumiendo que están en la columna A)
+    lista_coleadores = hoja_coleadores.col_values(1)[1:]
+
+    with st.form("registro_cuadro", clear_on_submit=True):
+        nombre = st.text_input("Nombre del Participante")
+        whatsapp = st.text_input("Número de WhatsApp")
+        
+        c1 = st.selectbox("Coleador 1", lista_coleadores)
+        c2 = st.selectbox("Coleador 2", lista_coleadores)
+        c3 = st.selectbox("Coleador 3", lista_coleadores)
+        c4 = st.selectbox("Coleador 4", lista_coleadores)
+        
+        btn_enviar = st.form_submit_button("Enviar Cuadro")
+
+        if btn_enviar:
+            if nombre and whatsapp:
+                hoja_cuadros.append_row([nombre, whatsapp, c1, c2, c3, c4])
+                st.success(f"¡Excelente {nombre}! Tu cuadro ha sido guardado.")
+            else:
+                st.warning("Por favor, ingresa tu nombre y número.")
+except Exception as e:
+    st.error(f"Error de conexión: {e}")
+    st.write("Asegúrate de que tus 'Secrets' estén bien configurados y que el correo de la cuenta de servicio sea editor en el Google Sheet.")
