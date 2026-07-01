@@ -11,8 +11,7 @@ try:
         scopes=["https://www.googleapis.com/auth/spreadsheets"]
     )
     client = gspread.authorize(creds)
-    # Abre tu hoja con el ID (sin toda la URL, solo el código largo)
-    # Tu ID es: 1GIHAS9zvV32vyj-PKxM7W8YC4gL4qGSSIsUb8MMVhzs
+    # ID de tu hoja: 1GIHAS9zvV32vyj-PKxM7W8YC4gL4qGSSIsUb8MMVhzs
     hoja = client.open_by_key("1GIHAS9zvV32vyj-PKxM7W8YC4gL4qGSSIsUb8MMVhzs").worksheet("Cuadros")
     st.success("¡Conexión establecida con éxito!")
 except Exception as e:
