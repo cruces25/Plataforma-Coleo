@@ -1,48 +1,32 @@
 import streamlit as st
 import gspread
-import json
 from google.oauth2.service_account import Credentials
 
 st.title("🏆 Plataforma de Quinielas de Coleo")
 
-# Función de conexión simplificada
-def conectar_sheets():
-    # Abrimos el archivo que acabas de subir al repositorio
-    with open('gcp_key.json', 'r') as f:
-        creds_dict = json.load(f)
-    
-    creds = Credentials.from_service_account_info(
-        creds_dict,
-        scopes=["https://www.googleapis.com/auth/spreadsheets"]
-    )
-    return gspread.authorize(creds)
+# Definimos la configuración como un diccionario directo
+# Esto evita que el sistema se confunda con formatos de archivos
+GCP_CONFIG = {
+    "type": "service_account",
+    "project_id": "generated-wharf-481303-u5",
+    "private_key_id": "162ba21471771bf8b0e16642c7cf01fe0ae44525",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC8h7qeulYq65U+\nIv5Isd4WJJaCmSNlwKNm45b14J2WosWmltYZjcSXrOGh3qMXboQKavaq9ASmxHT+\nm7E6TLKC1xiiGdAeCiDxi7xkmRFmlCeUbpGrmG3Vn5LxJpq3fKBcJU4khOExpUkG\n5BT2BQ/rniq7PiS5DtCIgNiG5Y7m91EW9HD7Ip7uzTYKS5W65NOwLyBKY7lw//8K\njsfbUZ9LS7qeQj5NoTf5SY8KuBlalxo8TRMKTeb5zlpc6ugq48QvRPVH4IpgQzjx\nRd76S0WX1t8qco1SsOEXfjJGx0hJMrVvYB+5XpBQqtNfB99ggAVH4qZPvva4iQja\nkrMO6nb7AgMBAAECggEAAdBH/4ZzzjHkosENpSpEa4xVOP27P+KqvfX5L1k4QDPT\nw13TNItH6ty4cZra5ld4tiVjfhLXwJy4FhEnIU0cBg+GwyMbGTJvTVxvbfWkxlHX\n3r1ycbxciTxv9v0FoxsesnYBaOD4I2M74NRs3Ic6KRczT8+Vc0wQhQpPYEIp9RdD\nusnFPmiCmuvFDHlc5N7P3VQ5ni4tVCa3+oMII5Qp6tgjsaXOqhopQNAJEZZ4LrJW\njczh4TjkdjN4LfYTj00cLf2wnm1UW5kEhADhICpCUZHbWa+YA+7K/hyoA/QI8ItF\nbe3clasn0IYXvFA/V1WSGSKe+ziOfO6C3QCey9G7UQKBgQDtu8gSkUbvgRtnpv5L\nvUqGDJF0ciknZnnm7YhOlG0HjLmCauh/xG4z+vh5SnPU2QzgT8tMBDijZgfyv5Z/\n4r82tBTLffMA7fmR7Ytxd+03c3NYEOIsKmkJA2gVFPSxAgFayp94kwdPj3Ejwh7y\nR63iQsiNGoQWiMJ0cMZoeYx/5wKBgQDLBB4wUguj7cSWbsZ2SsioLdJBYb3iCZoq\nBZrUE8ldlX2bi/wK6ZjiHtHmcJhe7EIpQ6IfJFwMFtNst++Jj5vI82+IN/JclV9a\ncMx3u6WBn6udH2gqTjZp5MPEVc5wPdAXHFUnS5+m2hPzwbuteEgJBBaILB+P51yL\nllBMY+I9zQKBgQDm8k9wyjTxIqkuzqmnhmJJSxha2TRllEXEMukB/WrVtL3almT7\nCiZM1PhhTBSup5S8rIfAdzFWex4pkjlwTySWzeaNsPNK6eRTAUM/ndOS1NMusGgn\no6OaH/cS0+LJujr6qnC1P5AQmDa/GCvcDgo8DciqWyIKihzt5Ui54aq97QKBgFZP\n5uHWT/qfAQCQEjKCsvLFoGmJu6gZOwD4pw3ZZ7gw8VkrV7nv/L7OKaFWZ4Gb4rkW\ndxvUYooFPlgvj1ilxK7XyKhaWOFB5GtYH6YcEk6c6uJ/UtMBs6KrzwtvC7iunwTk\nV9PAFB1lBCyTRk6HH+EtasL0N2sAC1mRS4xevvZVAoGAREGc/zQQnAl3NvJoob0l\ne0zve0xT1uBFdrfIw2OqDovWiD7bWwMMgI1eYQQsx3wDXk5/7JZrZ37VBdor3BOL\npJHcyYoDTIM24K0MwwNgXyhwoSZ0YCxalpSQRuEnXNHg2mWzU6trJEzviRQzYg75\naxm0WWpwc+GlizlVP6yLz1I=\n-----END PRIVATE KEY-----",
+    "client_email": "parley-coleo-aguirre@generated-wharf-481303-u5.iam.gserviceaccount.com"
+}
 
-# Intentar conectar
+# Conexión
 try:
-    client = conectar_sheets()
+    creds = Credentials.from_service_account_info(GCP_CONFIG, scopes=["https://www.googleapis.com/auth/spreadsheets"])
+    client = gspread.authorize(creds)
     hoja = client.open("BaseDatosColeo").worksheet("Cuadros")
+    st.success("¡Conexión establecida!")
 except Exception as e:
-    st.error(f"Error al conectar con la hoja: {e}")
+    st.error(f"Error: {e}")
     st.stop()
 
 # Formulario
-with st.form("registro_cuadros"):
-    st.subheader("Registrar nuevo cuadro")
-    participante = st.text_input("Nombre del Participante")
-    whatsapp = st.text_input("WhatsApp")
-    c1 = st.text_input("Coleador 1")
-    c2 = st.text_input("Coleador 2")
-    c3 = st.text_input("Coleador 3")
-    c4 = st.text_input("Coleador 4")
-    
-    enviar = st.form_submit_button("Guardar Cuadro")
-
-    if enviar:
-        if not participante or not whatsapp:
-            st.warning("Por favor, completa al menos el nombre y WhatsApp.")
-        else:
-            try:
-                hoja.append_row([participante, whatsapp, c1, c2, c3, c4])
-                st.success(f"¡Cuadro de {participante} registrado con éxito!")
-            except Exception as e:
-                st.error(f"Error al guardar: {e}")
+with st.form("registro"):
+    data = [st.text_input(l) for l in ["Nombre", "WhatsApp", "Coleador 1", "Coleador 2", "Coleador 3", "Coleador 4"]]
+    if st.form_submit_button("Guardar"):
+        hoja.append_row(data)
+        st.success("¡Guardado!")
