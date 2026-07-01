@@ -18,7 +18,7 @@ GCP_CONFIG = {
 try:
     creds = Credentials.from_service_account_info(GCP_CONFIG, scopes=["https://www.googleapis.com/auth/spreadsheets"])
     client = gspread.authorize(creds)
-    hoja = client.open("BaseDatosColeo").worksheet("Cuadros")
+    hoja = client.open_by_url("https://docs.google.com/spreadsheets/d/TU_ID_LARGO_AQUI/edit").worksheet("Cuadros")
     st.success("¡Conexión establecida!")
 except Exception as e:
     st.error(f"Error: {e}")
